@@ -15,16 +15,22 @@ from test2.forms import *
 #    return render(request, template_name, {"validar" : True})
 
 
-def index(request):
-    return HttpResponse("Mi primera vista")
+# def index(request):
+#    return HttpResponse("Mi primera vista")
 
 
-def login(request):
-    template_name = "test2/Login.html"
-    return render(request, template_name)
+# def login(request):
+#    template_name = "test2/Login.html"
+#    return render(request, template_name)
 
 
-def prueba(request):
-    template_name = "test2/index.html"
-    formpersona = AddPersona()
-    return render(request, template_name, {"FormPersona": formpersona})
+def agregar_medico(request):
+    template_name = "test2/Agregar_Medico.html"
+    formMedico = AddMedico()
+    return render(request, template_name, {"FormMedico": formMedico})
+
+
+def agregar_paciente(request):
+    template_name = "test2/Agregar_Paciente.html"
+    formPaciente = AddPaciente()
+    return render(request, template_name, {"FormPaciente": formPaciente})

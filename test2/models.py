@@ -1,15 +1,19 @@
 from django.db import models
+from django import forms
 
-# Create your models here.
+# Crear aqui los modelos. Cada vez que se realice un cambio realizar la migrations
+# makemigrations versiona las migraciones
+# migrate hace los cambios
 
 
-class Persona(models.Model):
+class Medico(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    estado_social = models.CharField(max_length=1,
-                                     choices=(
-                                         ("S", "Soltero"),
-                                         ("C", "Casado"),
-                                         ("D", "Divorsiado"),
-                                         ("O", "Otro"),)
-                                     )
+    fecha_nacimiento = models.DateField()
+    email = models.EmailField(max_length=120)
+
+
+class Paciente(models.Model):
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    fecha_nacimiento = models.DateField()

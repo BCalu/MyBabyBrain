@@ -1,0 +1,72 @@
+{% extends "Partials/_Base.html" %}
+{% load static %}
+
+{% block Title %}
+Ingresar Medico
+{% endblock %}
+
+{% block Style %}
+{% endblock %}
+
+{% block Body %}
+<div class="row">
+  <!-- Datos -->
+  <div class="col-md-6">
+    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+      <!-- Nombre -->
+      <div class="form-group">
+        <!-- Formato de tamano -->
+        <label class="control-label-left col-md-12 col-sm-12 col-xs-12" for="medico_nombre">Nombre <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <!-- <input type="text" id="first-name" placeholder="ALgo" required="required" class="form-control col-md-7 col-xs-12"> -->
+          {{FormMedico.nombre}}
+        </div>
+      </div><div class="ln_solid"></div>
+      <!-- Apellido -->
+      <div class='form-group'>
+        <label class="control-label-left col-md-12 col-sm-3 col-xs-12" for="medico_apellido">Apellido <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          {{FormMedico.apellido}}
+        </div>
+      </div><div class="ln_solid"></div>
+      <!-- Fecha de Nacimiento -->
+      <div class="form-group">
+        <label class="control-label-left col-md-12 col-sm-3 col-xs-12" for="medico_fecha_nacimiento">Fecha de Nacimiento <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          {{FormMedico.fecha_nacimiento}}
+        </div>
+      </div><div class="ln_solid"></div>
+      <!-- Email -->
+      <div class="form-group">
+        <label class="control-label-left col-md-12 col-sm-3 col-xs-12" for="medico_email">Email <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          {{FormMedico.email}}
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- Imagen -->
+  <div class="col-md-6">
+    <p>Lado de la imagen</p>
+  </div>
+</div>
+<div class="ln_solid"></div>
+<div class="row">
+  <!-- Botones -->
+  <div class="form-group">
+    <div class="col-md-12 col-sm-6 col-xs-12" style="text-align: center">
+      <button class="btn btn-primary" type="button">Cancelar</button>
+      <!-- <button class="btn " style="background: #123456; border: 1px solid #169F85" type="reset">Reiniciar</button> -->
+      <button class="btn btn-warning" type="reset">Reiniciar</button>
+      <button type="submit" class="btn btn-success">Ingresar</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block Javascript %}
+{% endblock %}
