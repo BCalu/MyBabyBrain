@@ -6,6 +6,8 @@ class AddMedico(forms.ModelForm):
     class Meta():
         model = Medico
         widgets = {
+            'rut': forms.TextInput(attrs={'class': 'form-control col-md-7 col-xs-12',
+                                          'placeholder': 'Ingrese Rut'}),
             'nombre': forms.TextInput(attrs={'class': 'form-control col-md-7 col-xs-12',
                                              'placeholder': 'Ingrese Nombre'}),
             'apellido': forms.TextInput(attrs={'class': 'form-control col-md-7 col-xs-12',
