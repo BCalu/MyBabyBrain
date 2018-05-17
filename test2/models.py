@@ -12,6 +12,7 @@ class Medico(models.Model):
     apellido = models.CharField(max_length=50)
     fecha_nacimiento = models.DateField()
     email = models.EmailField(max_length=120)
+    logo = models.ImageField(upload_to='ImagenesMedicos/')
 
 
 class Paciente(models.Model):

@@ -15,7 +15,9 @@ class AddMedico(forms.ModelForm):
             'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control col-md-7 col-xs-12',
                                                        'placeholder': 'YY-MM-DD'}),
             'email': forms.EmailInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                             'placeholder': 'Ingrese Correo Electronico'})
+                                             'placeholder': 'Ingrese Correo Electronico'}),
+            'logo': forms.FileInput(attrs={'type': "file",
+                                           'accept': "image/png, image/jpeg, image/gif"})
         }
         exclude = []
         # fields = []
