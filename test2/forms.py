@@ -1,38 +1,14 @@
-from django import forms
-from test2.models import *
+from django.forms import ModelForm
+from test2.models import Medico, Paciente
 
 
-class AddMedico(forms.ModelForm):
+class AddMedico(ModelForm):
     class Meta():
         model = Medico
-        widgets = {
-            'rut': forms.TextInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                          'placeholder': 'Ingrese Rut'}),
-            'nombre': forms.TextInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                             'placeholder': 'Ingrese Nombre'}),
-            'apellido': forms.TextInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                               'placeholder': 'Ingrese Apellido'}),
-            'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                                       'placeholder': 'YY-MM-DD'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                             'placeholder': 'Ingrese Correo Electronico'}),
-            'logo': forms.FileInput(attrs={'type': "file",
-                                           'accept': "image/png, image/jpeg, image/gif"})
-        }
-        exclude = []
-        # fields = []
+        fields = []
 
 
-class AddPaciente(forms.ModelForm):
+class AddPaciente(ModelForm):
     class Meta():
         model = Paciente
-        widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                             'placeholder': 'Ingrese Nombre'}),
-            'apellido': forms.TextInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                               'placeholder': 'Ingrese Apellido'}),
-            'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control col-md-7 col-xs-12',
-                                                       'placeholder': 'YY-MM-DD'}),
-        }
-        exclude = []
-        # fields = []
+        fields = []
