@@ -9,6 +9,11 @@ class MedicoAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(Pariente)
+class ParienteAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Paciente)
 class PacienteAdmin(admin.ModelAdmin):
     pass

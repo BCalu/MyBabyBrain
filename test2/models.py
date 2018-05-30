@@ -10,7 +10,6 @@ from itertools import cycle
 
 class Persona(models.Model):
     rut = models.CharField(max_length=15, help_text="Ejemplo: 12345678-9")
-    logo = models.ImageField(upload_to='ImagenesMedicos/')
     nombres = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=50)
     fecha_nacimiento = models.DateField()
@@ -58,6 +57,7 @@ class Persona(models.Model):
 
 
 class Medico(Persona):
+    logo = models.ImageField(upload_to='ImagenesMedicos/')
     email = models.EmailField(max_length=120, null=True, blank=True)
     telefono_celular = models.CharField(max_length=13, null=True, blank=True)
     telefono_domiclio = models.CharField(max_length=13, null=True, blank=True)
@@ -72,10 +72,10 @@ class Pariente(Persona):
 
 class Paciente(Persona):
     # un paciente puede tener solo un medico a cargo
-    medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
+    medico_asignado = models.ForeignKey(Medico, on_delete=models.CASCADE)
     parientes = models.ForeignKey(Pariente, on_delete=models.CASCADE)
     alergias = models.TextField(max_length=300)
     enfermedades = models.TextField(max_length=300)
-    peraciones = models.TextField(max_length=300)
+    operaciones = models.TextField(max_length=300)
     farmacos = models.TextField(max_length=300)
     hospitalizaciones = models.TextField(max_length=300)
