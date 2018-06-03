@@ -23,15 +23,6 @@ class Persona(models.Model):
                                   ('F', 'Femenino'),
                                   ('M', 'Masculino'),
                               ))
-    estado_civil = models.CharField(max_length=2,
-                                    choices=(
-                                        ('SO', 'Soltero/a'),
-                                        ('C', 'Casado/a'),
-                                        ('V', 'Viudo/a'),
-                                        ('D', 'Divorciado/a'),
-                                        ('SE', 'Separado/a'),
-                                    ))
-    ocupacion = models.CharField(max_length=100, blank=True)
 
     def calcular_edad(self):
         today = date.today()
@@ -62,12 +53,27 @@ class Medico(Persona):
     telefono_celular = models.CharField(max_length=13, null=True, blank=True)
     telefono_domiclio = models.CharField(max_length=13, null=True, blank=True)
 
+    def __str__(self):
+        return self.nombres + " " + self.apellidos
+
 
 class Pariente(Persona):
     # el pariente puede tener muchos dependientes (hijos por ejemplo)
+    ocupacion = models.CharField(max_length=100, blank=True)
+    estado_civil = models.CharField(max_length=2,
+                                    choices=(
+                                        ('SO', 'Soltero/a'),
+                                        ('C', 'Casado/a'),
+                                        ('V', 'Viudo/a'),
+                                        ('D', 'Divorciado/a'),
+                                        ('SE', 'Separado/a'),
+                                    ))
     email = models.EmailField(max_length=120, null=True, blank=True)
     telefono_celular = models.CharField(max_length=13, null=True, blank=True)
     telefono_domiclio = models.CharField(max_length=13, null=True, blank=True)
+
+    def __str__(self):
+        return self.nombres + " " + self.apellidos
 
 
 class Paciente(Persona):
@@ -79,3 +85,6 @@ class Paciente(Persona):
     operaciones = models.TextField(max_length=300)
     farmacos = models.TextField(max_length=300)
     hospitalizaciones = models.TextField(max_length=300)
+
+    def __str__(self):
+        return self.nombres + " " + self.apellidos

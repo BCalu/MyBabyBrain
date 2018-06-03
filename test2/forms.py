@@ -5,17 +5,24 @@ from test2.models import Medico, Pariente, Paciente
 class AddMedico(ModelForm):
     class Meta():
         model = Medico
-        fields = ['logo', 'email', 'telefono_celular', 'telefono_domiclio']
+        fields = ['rut', 'nombres', 'apellidos', 'fecha_nacimiento', 'edad',
+                  'nacionalidad', 'region', 'ciudad', 'domicilio', 'genero',
+                  'logo', 'email', 'telefono_celular', 'telefono_domiclio']
 
 
-class addPariente(ModelForm):
+class AddPariente(ModelForm):
     class Meta():
         model = Pariente
-        fields = ['email', 'telefono_celular', 'telefono_domiclio']
+        fields = ['rut', 'nombres', 'apellidos', 'fecha_nacimiento', 'edad',
+                  'nacionalidad', 'region', 'ciudad', 'domicilio', 'genero',
+                  'estado_civil', 'ocupacion', 'email', 'telefono_celular',
+                  'telefono_domiclio']
 
 
 class AddPaciente(ModelForm):
     class Meta():
         model = Paciente
-        fields = ['medico_asignado', 'parientes', 'alergias', 'enfermedades',
+        fields = ['rut', 'nombres', 'apellidos', 'fecha_nacimiento', 'edad',
+                  'nacionalidad', 'region', 'ciudad', 'domicilio', 'genero',
+                  'medico_asignado', 'parientes', 'alergias', 'enfermedades',
                   'operaciones', 'farmacos', 'hospitalizaciones']

@@ -1,217 +1,27 @@
 {% extends "Partials/_Base.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block Title %}
 Ingresar Medico
 {% endblock %}
 
 {% block Style %}
-<style media="screen">
-.container{
-  margin-top:20px;
-}
-.image-preview-input {
-  position: relative;
-  overflow: hidden;
-  margin: 0px;
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc;
-}
-.image-preview-input input[type=file] {
-position: absolute;
-top: 0;
-right: 0;
-margin: 0;
-padding: 0;
-font-size: 20px;
-cursor: pointer;
-opacity: 0;
-filter: alpha(opacity=0);
-}
-.image-preview-input-title {
-  margin-left:2px;
-}
-</style>
 {% endblock %}
 
 {% block Body %}
-<div class="row">
-  <!-- Datos -->
-  <div class="col-md-4">
-    <form id="formulario" data-parsley-validate class="form-horizontal form-label-left">
-      {% csrf_token %}
-      <!-- Rut -->
-      <div class="form-group">
-        <!-- Formato de tamano -->
-        <label class="control-label-left col-md-12 col-sm-12 col-xs-12" for="medico_nombre">Rut <span class="required">*</span>
-        </label>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <!-- <input type="text" id="first-name" placeholder="ALgo" required="required" class="form-control col-md-7 col-xs-12"> -->
-          {{FormMedico.rut}}
-        </div>
-      </div><div class="ln_solid"></div>
-      <!-- Nombre -->
-      <div class="form-group">
-        <label class="control-label-left col-md-12 col-sm-12 col-xs-12" for="medico_nombre">Nombre <span class="required">*</span>
-        </label>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          {{FormMedico.nombre}}
-        </div>
-      </div><div class="ln_solid"></div>
-      <!-- Apellido -->
-      <div class='form-group'>
-        <label class="control-label-left col-md-12 col-sm-3 col-xs-12" for="medico_apellido">Apellido <span class="required">*</span>
-        </label>
-        <div class="col-md-12 col-sm-6 col-xs-12">
-          {{FormMedico.apellido}}
-        </div>
-      </div><div class="ln_solid"></div>
-      <!-- Fecha de Nacimiento -->
-      <div class="form-group">
-        <label class="control-label-left col-md-12 col-sm-3 col-xs-12" for="medico_fecha_nacimiento">Fecha de Nacimiento <span class="required">*</span>
-        </label>
-        <div class="col-md-12 col-sm-6 col-xs-12">
-          {{FormMedico.fecha_nacimiento}}
-        </div>
-      </div><div class="ln_solid"></div>
-      <!-- Email -->
-      <div class="form-group">
-        <label class="control-label-left col-md-12 col-sm-3 col-xs-12" for="medico_email">Email <span class="required">*</span>
-        </label>
-        <div class="col-md-12 col-sm-6 col-xs-12">
-          {{FormMedico.email}}
-        </div>
-      </div>
-
-  </div>
-  <!-- Imagen -->
-  <div class="col-md-6">
-    <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-10 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <!-- image-preview-filename input [CUT FROM HERE]-->
-            <div class="input-group image-preview">
-                <input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
-                <span class="input-group-btn">
-                    <!-- image-preview-clear button -->
-                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                        <span class="glyphicon glyphicon-remove"></span> Eliminar
-                    </button>
-                    <!-- image-preview-input -->
-                    <div class="btn btn-default image-preview-input">
-                        <span class="glyphicon glyphicon-folder-open"></span>
-                        <span class="image-preview-input-title">Examinar</span>
-                        {{FormMedico.logo}}
-                    </div>
-                </span>
-            </div><!-- /input-group image-preview [TO HERE]-->
-        </div>
-    </div>
-</div>
-  </div>
-</div>
+<h1>Agregar Medico</h1>
 <div class="ln_solid"></div>
 <div class="row">
-  <!-- Botones -->
-  <div class="form-group">
-    <div class="col-md-12 col-sm-6 col-xs-12" style="text-align: center">
-      <button class="btn btn-primary" type="button">Cancelar</button>
-      <!-- <button class="btn " style="background: #123456; border: 1px solid #169F85" type="reset">Reiniciar</button> -->
-      <button class="btn btn-primary" type="reset">Reiniciar</button>
-      <button type="submit" class="btn btn-primary">Ingresar</button>
-    </div>
+  <div class="col-md-5">
+    <form action="{% url 'agregar_medico' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% bootstrap_form FormMedico %}
+      <input type="submit" value="Enviar" class="btn btn-primary btn-lg btn-block">
+    </form>
   </div>
-  </form>
 </div>
 {% endblock %}
 
 {% block Javascript %}
-<script>
-$(document).on('click', '#close-preview', function(){
-  $('.image-preview').popover('hide');
-  // Hover befor close the preview
-  $('.image-preview').hover(
-      function () {
-         $('.image-preview').popover('show');
-      },
-       function () {
-         $('.image-preview').popover('hide');
-      }
-  );
-});
-
-$(function() {
-  // Create the close button
-  var closebtn = $('<button/>', {
-      type:"button",
-      text: 'x',
-      id: 'close-preview',
-      style: 'font-size: initial;',
-  });
-  closebtn.attr("class","close pull-right");
-  // Set the popover default content
-  $('.image-preview').popover({
-      trigger:'manual',
-      html:true,
-      title: "<strong>Previsualizar</strong>"+$(closebtn)[0].outerHTML,
-      content: "There's no image",
-      placement:'bottom'
-  });
-  // Clear event
-  $('.image-preview-clear').click(function(){
-      $('.image-preview').attr("data-content","").popover('hide');
-      $('.image-preview-filename').val("");
-      $('.image-preview-clear').hide();
-      $('.image-preview-input input:file').val("");
-      $(".image-preview-input-title").text("Examinar");
-  });
-  // Create the preview image
-  $(".image-preview-input input:file").change(function (){
-      var img = $('<img/>', {
-          id: 'dynamic',
-          width:250,
-          height:200
-      });
-      var file = this.files[0];
-      var reader = new FileReader();
-      // Set preview image into the popover data-content
-      reader.onload = function (e) {
-          $(".image-preview-input-title").text("Cambiar");
-          $(".image-preview-clear").show();
-          $(".image-preview-filename").val(file.name);
-          img.attr('src', e.target.result);
-          $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
-      }
-      reader.readAsDataURL(file);
-  });
-});
-
-$("#formulario").submit(function(){
-  // Instanciar objeto formulario
-  formulario = new FormData();
-  formulario.append('logo', $('#id_logo')[0].files[0]);
-  // Crea diccionario de todos los valores que tiene formulario (en este caso)
-  datos = $(this).serializeArray();
-  // Recorrer el diccionario agregando los datos en formulario
-  $.each(datos, function(key, input){
-    formulario.append(input.name, input.value);
-  });
-  // Manda una peticion al backend
-  $.ajax({
-    url: '{% url "agregar_medico" %}',
-    type: 'POST',
-    cache: false,
-    contentType: false,
-    processData: false,
-    data: formulario,
-    // Si tiene exito, se realiza:
-    success: function(data){
-      console.log(data.llave);
-      // if(!data.Result) swal({title: 'Oops...', text: 'El nombre de usuario ya existe', type: 'error'});
-    },
-  });
-  return false;
-})
-</script>
 {% endblock %}

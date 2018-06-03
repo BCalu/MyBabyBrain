@@ -3,20 +3,20 @@
 {% load bootstrap4 %}
 
 {% block Title %}
-Ingresar Paciente
+Ingresar Pariente
 {% endblock %}
 
 {% block Style %}
 {% endblock %}
 
 {% block Body %}
-<h1>Agregar Paciente</h1>
+<h1>Agregar Pariente</h1>
 <div class="ln_solid"></div>
 <div class="row">
   <div class="col-md-5">
-    <form action="{% url 'agregar_medico' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'agregar_pariente' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      {% bootstrap_form FormPaciente %}
+      {% bootstrap_form FormPariente %}
       <input type="submit" value="Enviar" class="btn btn-primary btn-lg btn-block">
     </form>
   </div>

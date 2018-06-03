@@ -6,7 +6,7 @@ from test2.models import *
 
 @admin.register(Medico)
 class MedicoAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nombres', 'apellidos',)
 
 
 @admin.register(Pariente)
