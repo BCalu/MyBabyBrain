@@ -1,4 +1,5 @@
 from django.db import models
+from login.models import Credenciales
 from django import forms
 from datetime import date
 from itertools import cycle
@@ -9,10 +10,11 @@ from itertools import cycle
 
 
 class Persona(models.Model):
-    rut = models.CharField(max_length=15, help_text="Ejemplo: 12345678-9")
+    rut = models.CharField(max_length=15,
+                           help_text="Ejemplo: 12345678-9")
     nombres = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=50)
-    fecha_nacimiento = models.DateField()
+    fecha_nacimiento = models.DateField(help_text="Formato: AAAA-MM-DD")
     edad = models.PositiveIntegerField()
     nacionalidad = models.CharField(max_length=50)
     region = models.CharField(max_length=70)
@@ -46,20 +48,32 @@ class Persona(models.Model):
         else:
             return False
 
-
-class Medico(Persona):
-    logo = models.ImageField(upload_to='ImagenesMedicos/')
-    email = models.EmailField(max_length=120, null=True, blank=True)
-    telefono_celular = models.CharField(max_length=13, null=True, blank=True)
-    telefono_domiclio = models.CharField(max_length=13, null=True, blank=True)
-
     def __str__(self):
         return self.nombres + " " + self.apellidos
 
 
+class Medico(Persona):
+    usuario_login = models.OneToOneField(Credenciales,
+                                         on_delete=models.CASCADE,
+                                         null=True)
+    logo = models.ImageField(upload_to='ImagenesMedicos/')
+    email = models.EmailField(max_length=120,
+                              null=True,
+                              blank=True)
+    telefono_celular = models.CharField(max_length=13,
+                                        null=True,
+                                        blank=True)
+    telefono_domiclio = models.CharField(max_length=13,
+                                         null=True,
+                                         blank=True)
+
+
 class Pariente(Persona):
-    # el pariente puede tener muchos dependientes (hijos por ejemplo)
-    ocupacion = models.CharField(max_length=100, blank=True)
+    usuario_login = models.OneToOneField(Credenciales,
+                                         on_delete=models.CASCADE,
+                                         null=True)
+    ocupacion = models.CharField(max_length=100,
+                                 blank=True)
     estado_civil = models.CharField(max_length=2,
                                     choices=(
                                         ('SO', 'Soltero/a'),
@@ -68,23 +82,24 @@ class Pariente(Persona):
                                         ('D', 'Divorciado/a'),
                                         ('SE', 'Separado/a'),
                                     ))
-    email = models.EmailField(max_length=120, null=True, blank=True)
-    telefono_celular = models.CharField(max_length=13, null=True, blank=True)
-    telefono_domiclio = models.CharField(max_length=13, null=True, blank=True)
-
-    def __str__(self):
-        return self.nombres + " " + self.apellidos
+    email = models.EmailField(max_length=120,
+                              null=True,
+                              blank=True)
+    telefono_celular = models.CharField(max_length=13,
+                                        null=True,
+                                        blank=True)
+    telefono_domiclio = models.CharField(max_length=13,
+                                         null=True,
+                                         blank=True)
 
 
 class Paciente(Persona):
-    # un paciente puede tener solo un medico a cargo
-    medico_asignado = models.ForeignKey(Medico, on_delete=models.CASCADE)
-    parientes = models.ForeignKey(Pariente, on_delete=models.CASCADE)
+    medico_asignado = models.ForeignKey(Medico,
+                                        on_delete=models.CASCADE)
+    parientes = models.ForeignKey(Pariente,
+                                  on_delete=models.CASCADE)
     alergias = models.TextField(max_length=300)
     enfermedades = models.TextField(max_length=300)
     operaciones = models.TextField(max_length=300)
     farmacos = models.TextField(max_length=300)
     hospitalizaciones = models.TextField(max_length=300)
-
-    def __str__(self):
-        return self.nombres + " " + self.apellidos

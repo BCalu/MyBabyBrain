@@ -19,5 +19,7 @@ from test2 import views as views_test2
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test2/', include('test2.urls')),
+    path('test2/', include('test2.urls'), name='portal'),
+    path('login/', include('login.urls'), name='login'),
+
 ]

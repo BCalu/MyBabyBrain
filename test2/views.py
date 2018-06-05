@@ -1,29 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from test2.forms import *
-
-# def index(request):
-#    template_name = "test2/index.html"
-#    return render(request, template_name, {})
-
-# def index_2(request):
-#    template_name = "test2/index.html"
-#    asdasd
-#    a = range(100)
-#    print ("asdkljasdklasjdjhaslsdajhk", template_name)
-
-#    return render(request, template_name, {"validar" : True})
+from test2.forms import AddMedico, AddPariente, AddPaciente
+from django.contrib.auth.decorators import login_required
 
 
-# def index(request):
-#    return HttpResponse("Mi primera vista")
-
-
-# def login(request):
-#    template_name = "test2/Login.html"
-#    return render(request, template_name)
-
-
+@login_required(login_url='/login/')
 def agregar_medico(request):
     # Si el request es un POST
     if request.method == "POST":
@@ -41,6 +22,7 @@ def agregar_medico(request):
     return render(request, template_name, {"FormMedico": formMedico})
 
 
+@login_required(login_url='/login/')
 def agregar_paciente(request):
     if request.method == "POST":
         formPaciente = AddPaciente(request.POST, request.FILES)
@@ -52,6 +34,7 @@ def agregar_paciente(request):
     return render(request, template_name, {"FormPaciente": formPaciente})
 
 
+@login_required(login_url='/auth/login')
 def agregar_pariente(request):
     if request.method == "POST":
         formPariente = AddPariente(request.POST, request.FILES)
