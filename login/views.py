@@ -38,4 +38,4 @@ def portal_login(request):
 
 def portal_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('logout'))
+    return HttpResponseRedirect(reverse('login'))
