@@ -1,5 +1,4 @@
 from django.db import models
-from login.models import Credenciales
 from django import forms
 from datetime import date
 from itertools import cycle
