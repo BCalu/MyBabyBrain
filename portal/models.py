@@ -53,9 +53,6 @@ class Persona(models.Model):
 
 
 class Medico(Persona):
-    usuario_login = models.OneToOneField(Credenciales,
-                                         on_delete=models.CASCADE,
-                                         null=True)
     logo = models.ImageField(upload_to='ImagenesMedicos/')
     email = models.EmailField(max_length=120,
                               null=True,
@@ -68,10 +65,7 @@ class Medico(Persona):
                                          blank=True)
 
 
-class Pariente(Persona):
-    usuario_login = models.OneToOneField(Credenciales,
-                                         on_delete=models.CASCADE,
-                                         null=True)
+class Supervisor(Persona):
     ocupacion = models.CharField(max_length=100,
                                  blank=True)
     estado_civil = models.CharField(max_length=2,
@@ -96,8 +90,9 @@ class Pariente(Persona):
 class Paciente(Persona):
     medico_asignado = models.ForeignKey(Medico,
                                         on_delete=models.CASCADE)
-    parientes = models.ForeignKey(Pariente,
-                                  on_delete=models.CASCADE)
+    supervisor_asignado = models.ForeignKey(Supervisor,
+                                            on_delete=models.CASCADE,
+                                            null=True)
     alergias = models.TextField(max_length=300)
     enfermedades = models.TextField(max_length=300)
     operaciones = models.TextField(max_length=300)

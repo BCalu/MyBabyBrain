@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from test2.forms import AddMedico, AddPariente, AddPaciente
+from portal.forms import AddMedico, AddSupervisor, AddPaciente
 from django.contrib.auth.decorators import login_required
 
 
@@ -17,7 +17,7 @@ def agregar_medico(request):
             # Esta el objeto si necesito trabajar con el
             Medico.save()
         # return JsonResponse({"llave": 'VALOR'})
-    template_name = "test2/Agregar_Medico.html"
+    template_name = "portal/Agregar_Medico.html"
     formMedico = AddMedico()
     return render(request, template_name, {"FormMedico": formMedico})
 
@@ -29,18 +29,18 @@ def agregar_paciente(request):
         if formPaciente.is_valid():
             Paciente = formPaciente.save(commit=False)
             Paciente.save()
-    template_name = "test2/Agregar_Paciente.html"
+    template_name = "portal/Agregar_Paciente.html"
     formPaciente = AddPaciente()
     return render(request, template_name, {"FormPaciente": formPaciente})
 
 
 @login_required(login_url='/auth/login')
-def agregar_pariente(request):
+def agregar_supervisor(request):
     if request.method == "POST":
-        formPariente = AddPariente(request.POST, request.FILES)
-        if formPariente.is_valid():
-            Pariente = formPariente.save(commit=False)
-            Pariente.save()
-    template_name = "test2/Agregar_Pariente.html"
-    formPariente = AddPariente()
-    return render(request, template_name, {"FormPariente": formPariente})
+        formSupervisor = AddSupervisor(request.POST, request.FILES)
+        if formSupervisor.is_valid():
+            Supervisor = formSupervisor.save(commit=False)
+            Supervisor.save()
+    template_name = "portal/Agregar_Supervisor.html"
+    formSupervisor = AddSupervisor()
+    return render(request, template_name, {"FormSupervisor": formSupervisor})

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'test2',
+    'portal',
     'login',
     'django.contrib.staticfiles',
     'bootstrap3',

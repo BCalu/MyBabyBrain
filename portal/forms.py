@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from test2.models import Medico, Pariente, Paciente
+from portal.models import Medico, Supervisor, Paciente
 
 
 class AddMedico(ModelForm):
@@ -10,9 +10,9 @@ class AddMedico(ModelForm):
                   'logo', 'email', 'telefono_celular', 'telefono_domiclio']
 
 
-class AddPariente(ModelForm):
+class AddSupervisor(ModelForm):
     class Meta():
-        model = Pariente
+        model = Supervisor
         fields = ['rut', 'nombres', 'apellidos', 'fecha_nacimiento', 'edad',
                   'nacionalidad', 'region', 'ciudad', 'domicilio', 'genero',
                   'estado_civil', 'ocupacion', 'email', 'telefono_celular',
@@ -24,5 +24,5 @@ class AddPaciente(ModelForm):
         model = Paciente
         fields = ['rut', 'nombres', 'apellidos', 'fecha_nacimiento', 'edad',
                   'nacionalidad', 'region', 'ciudad', 'domicilio', 'genero',
-                  'medico_asignado', 'parientes', 'alergias', 'enfermedades',
-                  'operaciones', 'farmacos', 'hospitalizaciones']
+                  'medico_asignado', 'supervisor_asignado', 'alergias',
+                  'enfermedades', 'operaciones', 'farmacos', 'hospitalizaciones']
