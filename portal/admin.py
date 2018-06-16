@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from portal.models import Medico, Supervisor, Paciente
 # Register your models here.
 

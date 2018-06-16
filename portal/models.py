@@ -2,6 +2,7 @@ from django.db import models
 from django import forms
 from datetime import date
 from itertools import cycle
+from django.contrib.auth.models import User, Group
 
 # Crear aqui los modelos. Cada vez que se realice un cambio realizar la migrations
 # makemigrations versiona las migraciones
@@ -25,6 +26,9 @@ class Persona(models.Model):
                                   ('M', 'Masculino'),
                               ))
 
+    def __str__(self):
+        return self.nombres + " " + self.apellidos
+
     def calcular_edad(self):
         today = date.today()
         self.edad = today.year - fecha_nacimiento.year - ((today.month, today.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
@@ -47,8 +51,12 @@ class Persona(models.Model):
         else:
             return False
 
-    def __str__(self):
-        return self.nombres + " " + self.apellidos
+    def agregar_a_grupo(self, nombre_grupo):
+        grupo = Group.objects.get(name=nombre_grupo)
+        grupo.user_set.add(self)
+
+    def es_miembro(self, nombre_grupo):
+        return self.groups.filter(name=nombre_grupo).exists()
 
 
 class Medico(Persona):
@@ -62,6 +70,10 @@ class Medico(Persona):
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
+
+    def asignar_grupo(self):
+        grupo_medico = Group.objects.get(name='Medicos')
+        grupo_medico.user_set.add(self)
 
 
 class Supervisor(Persona):
@@ -84,6 +96,10 @@ class Supervisor(Persona):
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
+
+    def asignar_grupo(self):
+        grupo_supervisor = Group.objects.get(name='Supervisores')
+        grupo_supervisor.user_set.add(self)
 
 
 class Paciente(Persona):
