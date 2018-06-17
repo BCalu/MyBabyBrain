@@ -2,24 +2,18 @@
 {% load bootstrap3 %}
 
 {% block Title %}
-Agregar Medico
-{% endblock %}
-
-{% block Style %}
-{% endblock %}
-
-{% block Sidebar %}
+Editar Medico
 {% endblock %}
 
 {% block Body %}
-<h1>Agregar Medico</h1>
+<h1>Editar Medico</h1>
 <div class="ln_solid"></div>
 <div class="row">
   <div class="col-md-5">
-    <form action="{% url 'agregar_medico' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'editar_medico' rut %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
-      {% bootstrap_form FormMedico %}
+      {% bootstrap_form form %}
       <input type="submit" value="Enviar" class="btn btn-primary btn-lg btn-block">
     </form>
   </div>

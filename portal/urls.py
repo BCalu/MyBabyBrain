@@ -10,6 +10,9 @@ urlpatterns = [
     path('exportar',
          views.exportar,
          name='exportar'),
+    path('monitoreo/<int:paciente_rut>',
+         views.monitoreo,
+         name='monitoreo'),
     # funciones medico (incluyendo las de supervisor)
     path('pacientes',
          views.listar_pacientes,
@@ -32,6 +35,9 @@ urlpatterns = [
     path('agregar/usuario/supervisor',
          views.agregar_usuario_supervisor,
          name='agregar_usuario_supervisor'),
+    path('supervisores',
+         views.listar_supervisores,
+         name='listar_supervisores'),
     # funciones admin (incluyendo las de supervisor y medico)
     path('agregar/medico',
          views.agregar_medico,
@@ -42,4 +48,7 @@ urlpatterns = [
     path('agregar/usuario/medico',
          views.agregar_usuario_medico,
          name='agregar_usuario_medico'),
+    path('medicos',
+         views.listar_medicos,
+         name='listar_medicos'),
 ]

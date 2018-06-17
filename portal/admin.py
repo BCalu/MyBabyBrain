@@ -5,20 +5,20 @@ from portal.models import Administrador, Medico, Supervisor, Paciente
 
 @admin.register(Administrador)
 class AdministradorAdmin(admin.ModelAdmin):
-    list_display = ('nombres', 'apellidos',)
+    list_display = ('rut', 'nombres', 'apellidos',)
 
 
 @admin.register(Medico)
 class MedicoAdmin(admin.ModelAdmin):
-    list_display = ('nombres', 'apellidos',)
+    list_display = ('rut', 'nombres', 'apellidos',)
 
 
 @admin.register(Supervisor)
 class SupervisorAdmin(admin.ModelAdmin):
-    list_display = ('nombres', 'apellidos',)
+    list_display = ('rut', 'nombres', 'apellidos',)
 
 
 @admin.register(Paciente)
 class PacienteAdmin(admin.ModelAdmin):
-    list_display = ('nombres', 'apellidos', 'medico_asignado',
+    list_display = ('rut', 'nombres', 'apellidos', 'medico_asignado',
                     'supervisor_asignado')

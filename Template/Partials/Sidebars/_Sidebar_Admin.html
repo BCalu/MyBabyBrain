@@ -3,25 +3,25 @@
   <ul class="nav side-menu">
     <li><a><i class="fa fa-user-md"></i>Medicos<span class="fa fa-chevron-down"></span></a>
       <ul class="nav child_menu">
-        <li><a href="{% url 'agregar_medico' %}">Medicos Registrados</a></li>
+        <li><a href="{% url 'listar_medicos' %}">Medicos Registrados</a></li>
         <li><a href="{% url 'agregar_medico' %}">Agregar Medico</a></li>
       </ul>
     </li>
     <li><a><i class="fa fa-search"></i>Supervisores<span class="fa fa-chevron-down"></span></a>
       <ul class="nav child_menu">
-        <li><a href="{% url 'agregar_supervisor' %}">Supervisores Registrados</a></li>
+        <li><a href="{% url 'listar_supervisores' %}">Supervisores Registrados</a></li>
         <li><a href="{% url 'agregar_supervisor' %}">Agregar Supervisor</a></li>
       </ul>
     </li>
     <li><a><i class="fa fa-user"></i>Pacientes<span class="fa fa-chevron-down"></span></a>
       <ul class="nav child_menu">
-        <li><a href="{% url 'agregar_paciente' %}">Pacientes Registrados</a></li>
+        <li><a href="{% url 'listar_pacientes' %}">Pacientes Registrados</a></li>
         <li><a href="{% url 'agregar_paciente' %}">Agregar Paciente</a></li>
       </ul>
     </li>
     <li><a><i class="fa fa-file"></i>Exportar Datos<span class="fa fa-chevron-down"></span></a>
       <ul class="nav child_menu">
-        <li><a href="{% url 'agregar_paciente' %}">Nombre</a></li>
+        <li><a href="{% url 'exportar' %}">Nombre</a></li>
       </ul>
     </li>
     <li><a href="{% url 'logout' %}"><i class="fa fa-close"></i>Cerrar Sesión</a></li>

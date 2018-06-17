@@ -3,20 +3,17 @@
 {% load bootstrap3 %}
 
 {% block Title %}
-Agregar Paciente
-{% endblock %}
-
-{% block Style %}
+Agregar Supervisor
 {% endblock %}
 
 {% block Body %}
-<h1>Agregar Paciente</h1>
+<h1>Agregar Supervisor</h1>
 <div class="ln_solid"></div>
 <div class="row">
   <div class="col-md-5">
-    <form action="{% url 'agregar_medico' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'agregar_supervisor' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      {% bootstrap_form FormPaciente %}
+      {% bootstrap_form FormSupervisor %}
       <input type="submit" value="Enviar" class="btn btn-primary btn-lg btn-block">
     </form>
   </div>

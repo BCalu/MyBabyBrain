@@ -1,0 +1,24 @@
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block Title %}
+Agregar Paciente
+{% endblock %}
+
+{% block Body %}
+<h1>Agregar Paciente</h1>
+<div class="ln_solid"></div>
+<div class="row">
+  <div class="col-md-5">
+    <form action="{% url 'agregar_medico' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% bootstrap_form FormPaciente %}
+      <input type="submit" value="Enviar" class="btn btn-primary btn-lg btn-block">
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block Javascript %}
+{% endblock %}
