@@ -111,6 +111,14 @@ def agregar_usuario_medico(request):
 
 
 def listar_medicos(request):
+    data = {}
+    # Para eliminar
+    if request.method == 'POST':
+        print("ENTRO")
+        medico = Medico.objects.get(rut=request.POST['llave'])
+        print(medico.nombres)
+        medico.delete()
+        return JsonResponse({"result": True})
     data['medicos'] = Medico.objects.all()
     template_name = "portal/Listar/Medicos.html"
     return render(request, template_name, data)

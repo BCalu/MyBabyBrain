@@ -1,0 +1,97 @@
+{% extends "Partials/_Base.html" %}
+{% load bootstrap3 %}
+
+{% block Title %}
+Medicos Registrados
+{% endblock %}
+
+{% block Body %}
+<h1>Lista de Medicos</h1>
+<div class="ln_solid"></div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_content">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Rut</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>E-Mail</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for x in medicos%}
+            <tr>
+              <td>{{forloop.counter}}</th>
+              <th scope="row">{{x.rut}}</th>
+              <td>{{x.nombres}}</td>
+              <td>{{x.apellidos}}</td>
+              <td>{{x.email}}</td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones</button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <a href="{% url 'editar_medico' x.rut %}">
+                      <button class="dropdown-item editar" type="button" style="cursor: pointer;">Editar</button>
+                    </a>
+                    <button class="dropdown-item eliminar" type="button" style="cursor: pointer;" data-pk="{{x.rut}}">Eliminar</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block Javascript %}
+<script type="text/javascript">
+  function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+
+  // A todo atributo con clase eliminar, si se le hace click se ejecuta la siguiente funcion
+  $(".eliminar").on("click", function(){
+    // Enviar y recibir informacion del BackEnd
+    $.ajax({
+      // Donde se ejecutara la accion
+      url: '{% url "listar_medicos" %}',
+      // De que tipo es el envio
+      type: 'POST',
+      // Los datos que iran al BackEnd
+      data: {'csrfmiddlewaretoken': getCookie('csrftoken'), "llave": $(this).data('pk')},
+      // Si tiene exito, se realiza:
+      success: function(data){
+        // Si se retorna
+        if (data.result) {
+          alert("Medico eliminado.");
+          location.reload();
+        }
+      },
+      error: function(){
+        alert("Error al eliminar.")
+      }
+    });
+  });
+</script>
+{% endblock %}
