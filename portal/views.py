@@ -5,7 +5,6 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from portal.forms import AddMedico, AddSupervisor, AddPaciente
 from portal.models import Administrador, Medico, Supervisor, Paciente
-from portal.permisos import usuario_es_admin, usuario_es_medico, usuario_es_supervisor
 
 
 # funciones supervisor

@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,11 +51,13 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            {% if request.user %}
+            {% if request.user|is_admin %}
               {% include "Partials/Sidebars/_Sidebar_Admin.html" %}
-            {% elif request.user %}
+
+            {% elif request.user|is_medico %}
               {% include "Partials/Sidebars/_Sidebar_Medico.html" %}
-            {% elif request.user %}
+
+            {% elif request.user|is_supervisor %}
               {% include "Partials/Sidebars/_Sidebar_Supervisor.html" %}
 
             {% endif %}
