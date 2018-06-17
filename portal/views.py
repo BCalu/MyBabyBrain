@@ -1,10 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.decorators import login_required
 from django import template
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.decorators import login_required
 from portal.forms import AddMedico, AddSupervisor, AddPaciente
-from portal.models import Medico, Supervisor, Paciente
-from .permisos import usuario_es_admin, usuario_es_medico, usuario_es_supervisor
+from portal.models import Administrador, Medico, Supervisor, Paciente
+from portal.permisos import usuario_es_admin, usuario_es_medico, usuario_es_supervisor
 
 
 # funciones supervisor
@@ -70,15 +71,11 @@ def agregar_medico(request):
         formMedico = AddMedico(request.POST, request.FILES)
         # Si los atributos estan validados correctamente
         if formMedico.is_valid():
-            # Crea objeto y lo guarda en la BDD
+            # Instancia de medico, aun no se guarda en la DB
             medico = formMedico.save(commit=False)
-            # Esta el objeto si necesito trabajar con el
+            medico.crear_usuario()
+            medico.calcular_edad()
             medico.save()
-            user = User.objects.create_user(username=rut,
-                                            email=email,
-                                            password=fecha_nacimiento)
-            grupo = Group.objects.get(name='Medicos')
-            grupo.user_set.add(user)
         # return JsonResponse({"llave": 'VALOR'})
     template_name = "portal/Agregar_Medico.html"
     formMedico = AddMedico()

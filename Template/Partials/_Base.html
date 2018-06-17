@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>{% block Title %}Titulo por defecto{% endblock %}</title>
+    <title>{% block Title %}{% endblock %}</title>
 
     <!-- Bootstrap -->
     <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -50,10 +50,12 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <!-- no van los parentesis -->
-            {% if es_admin %}
-            
+            {% if request.user %}
               {% include "Partials/Sidebars/_Sidebar_Admin.html" %}
+            {% elif request.user %}
+              {% include "Partials/Sidebars/_Sidebar_Medico.html" %}
+            {% elif request.user %}
+              {% include "Partials/Sidebars/_Sidebar_Supervisor.html" %}
 
             {% endif %}
             </div>
@@ -79,7 +81,7 @@
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
+        <!-- <div class="top_nav">
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
@@ -172,7 +174,7 @@
               </ul>
             </nav>
           </div>
-        </div>
+        </div> -->
         <!-- /top navigation -->
 
         <!-- page content -->

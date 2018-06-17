@@ -1,8 +1,8 @@
+from django.contrib.auth.models import User, Group
 from django.db import models
 from django import forms
 from datetime import date
 from itertools import cycle
-from django.contrib.auth.models import User, Group
 
 # Crear aqui los modelos. Cada vez que se realice un cambio realizar la migrations
 # makemigrations versiona las migraciones
@@ -31,7 +31,7 @@ class Persona(models.Model):
 
     def calcular_edad(self):
         today = date.today()
-        self.edad = today.year - fecha_nacimiento.year - ((today.month, today.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
+        self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
 
     def validar_rut(self):
         self.rut = self.rut.upper()
@@ -51,29 +51,44 @@ class Persona(models.Model):
         else:
             return False
 
-    def agregar_a_grupo(self, nombre_grupo):
-        grupo = Group.objects.get(name=nombre_grupo)
-        grupo.user_set.add(self)
 
-    def es_miembro(self, nombre_grupo):
-        return self.groups.filter(name=nombre_grupo).exists()
-
-
-class Medico(Persona):
-    logo = models.ImageField(upload_to='ImagenesMedicos/')
-    email = models.EmailField(max_length=120,
-                              null=True,
-                              blank=True)
+class Administrador(Persona):
+    email = models.EmailField(max_length=120)
     telefono_celular = models.CharField(max_length=13,
                                         null=True,
                                         blank=True)
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def asignar_grupo(self):
-        grupo_medico = Group.objects.get(name='Medicos')
-        grupo_medico.user_set.add(self)
+    def crear_usuario(self):
+        user = User.objects.create_user(username=self.rut,
+                                        email=self.email,
+                                        password=self.nombres + self.rut)
+        grupo = Group.objects.get(name='Administradores')
+        grupo.user_set.add(user)
+        self.user = user
+
+
+class Medico(Persona):
+    logo = models.ImageField(upload_to='ImagenesMedicos/')
+    email = models.EmailField(max_length=120)
+    telefono_celular = models.CharField(max_length=13,
+                                        null=True,
+                                        blank=True)
+    telefono_domiclio = models.CharField(max_length=13,
+                                         null=True,
+                                         blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def crear_usuario(self):
+        user = User.objects.create_user(username=self.rut,
+                                        email=self.email,
+                                        password=self.nombres + self.rut)
+        grupo = Group.objects.get(name='Medicos')
+        grupo.user_set.add(user)
+        self.user = user
 
 
 class Supervisor(Persona):
@@ -87,19 +102,22 @@ class Supervisor(Persona):
                                         ('D', 'Divorciado/a'),
                                         ('SE', 'Separado/a'),
                                     ))
-    email = models.EmailField(max_length=120,
-                              null=True,
-                              blank=True)
+    email = models.EmailField(max_length=120)
     telefono_celular = models.CharField(max_length=13,
                                         null=True,
                                         blank=True)
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def asignar_grupo(self):
-        grupo_supervisor = Group.objects.get(name='Supervisores')
-        grupo_supervisor.user_set.add(self)
+    def crear_usuario(self):
+        user = User.objects.create_user(username=self.rut,
+                                        email=self.email,
+                                        password=self.nombres + self.rut)
+        grupo = Group.objects.get(name='Supervisores')
+        grupo.user_set.add(user)
+        self.user = user
 
 
 class Paciente(Persona):
