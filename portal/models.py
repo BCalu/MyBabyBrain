@@ -60,7 +60,7 @@ class Administrador(Persona):
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def crear_usuario(self):
         user = User.objects.create_user(username=self.rut,
@@ -69,6 +69,14 @@ class Administrador(Persona):
         grupo = Group.objects.get(name='Administradores')
         grupo.user_set.add(user)
         self.user = user
+
+    def crear(self):
+        self.crear_usuario()
+        self.calcular_edad()
+
+    def eliminar(self):
+        self.user.delete()
+        self.delete()
 
 
 class Medico(Persona):
@@ -80,7 +88,7 @@ class Medico(Persona):
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def crear_usuario(self):
         user = User.objects.create_user(username=self.rut,
@@ -89,6 +97,14 @@ class Medico(Persona):
         grupo = Group.objects.get(name='Medicos')
         grupo.user_set.add(user)
         self.user = user
+
+    def crear(self):
+        self.crear_usuario()
+        self.calcular_edad()
+
+    def eliminar(self):
+        self.user.delete()
+        self.delete()
 
 
 class Supervisor(Persona):
@@ -109,7 +125,7 @@ class Supervisor(Persona):
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def crear_usuario(self):
         user = User.objects.create_user(username=self.rut,
@@ -118,6 +134,14 @@ class Supervisor(Persona):
         grupo = Group.objects.get(name='Supervisores')
         grupo.user_set.add(user)
         self.user = user
+
+    def crear(self):
+        self.crear_usuario()
+        self.calcular_edad()
+
+    def eliminar(self):
+        self.user.delete()
+        self.delete()
 
 
 class Paciente(Persona):

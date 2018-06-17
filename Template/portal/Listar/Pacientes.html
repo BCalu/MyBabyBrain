@@ -2,11 +2,11 @@
 {% load bootstrap3 %}
 
 {% block Title %}
-Medicos Registrados
+Pacientes Registrados
 {% endblock %}
 
 {% block Body %}
-<h1>Lista de Medicos</h1>
+<h1>Lista de Pacientes</h1>
 <div class="ln_solid"></div>
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -19,23 +19,25 @@ Medicos Registrados
               <th>Rut</th>
               <th>Nombres</th>
               <th>Apellidos</th>
-              <th>E-Mail</th>
+              <th>Medico Asignado</th>
+              <th>Supervisor</th>
               <th>Acción</th>
             </tr>
           </thead>
           <tbody>
-            {% for x in medicos %}
+            {% for x in pacientes %}
             <tr>
               <td>{{forloop.counter}}</th>
               <th scope="row">{{x.rut}}</th>
               <td>{{x.nombres}}</td>
               <td>{{x.apellidos}}</td>
-              <td>{{x.email}}</td>
+              <td>{{x.medico_asignado}}</td>
+              <td>{{x.supervisor_asignado}}</td>
               <td>
                 <div class="dropdown">
                   <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones</button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <a href="{% url 'editar_medico' x.rut %}">
+                    <a href="{% url 'editar_paciente' x.rut %}">
                       <button class="dropdown-item editar" type="button" style="cursor: pointer;">Editar</button>
                     </a>
                     <button class="dropdown-item eliminar" type="button" style="cursor: pointer;" data-pk="{{x.rut}}">Eliminar</button>
@@ -75,7 +77,7 @@ Medicos Registrados
     // Enviar y recibir informacion del BackEnd
     $.ajax({
       // Donde se ejecutara la accion
-      url: '{% url "listar_medicos" %}',
+      url: '{% url "listar_pacientes" %}',
       // De que tipo es el envio
       type: 'POST',
       // Los datos que iran al BackEnd
@@ -84,7 +86,7 @@ Medicos Registrados
       success: function(data){
         // Si se retorna
         if (data.result) {
-          alert("Medico eliminado.");
+          alert("Paciente eliminado.");
           location.reload();
         }
       },
