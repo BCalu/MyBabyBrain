@@ -4,7 +4,8 @@ from django import forms
 from datetime import date
 from itertools import cycle
 
-# Crear aqui los modelos. Cada vez que se realice un cambio realizar la migrations
+# Crear aqui los modelos. Cada vez que se realice un cambio realizar la
+# migrations
 # makemigrations versiona las migraciones
 # migrate hace los cambios
 
@@ -31,7 +32,9 @@ class Persona(models.Model):
 
     def calcular_edad(self):
         today = date.today()
-        self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
+        difference = ((today.month, today.day) < (self.fecha_nacimiento.month,
+                                                  self.fecha_nacimiento.day))
+        self.edad = today.year - self.fecha_nacimiento.year - difference
 
     def validar_rut(self):
         self.rut = self.rut.upper()
@@ -103,6 +106,7 @@ class Medico(Persona):
         self.calcular_edad()
 
     def eliminar(self):
+        self.logo.delete(save=True)
         self.user.delete()
         self.delete()
 

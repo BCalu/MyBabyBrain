@@ -34,4 +34,5 @@ class AddPaciente(ModelForm):
         fields = ['rut', 'nombres', 'apellidos', 'fecha_nacimiento',
                   'nacionalidad', 'region', 'ciudad', 'domicilio', 'genero',
                   'medico_asignado', 'supervisor_asignado', 'alergias',
-                  'enfermedades', 'operaciones', 'farmacos', 'hospitalizaciones']
+                  'enfermedades', 'operaciones', 'farmacos',
+                  'hospitalizaciones']

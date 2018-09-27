@@ -36,7 +36,8 @@ def listar_pacientes(request):
 @login_required(login_url='/login/')
 def agregar_paciente(request):
     if request.method == "POST":
-        formPaciente = AddPaciente(request.POST, request.FILES)
+        formPaciente = AddPaciente(request.POST,
+                                   request.FILES)
         if formPaciente.is_valid():
             paciente = formPaciente.save(commit=False)
             paciente.calcular_edad()
@@ -51,7 +52,9 @@ def editar_paciente(request, paciente_rut):
     data = {'rut': paciente_rut}
     paciente = Paciente.objects.get(rut=paciente_rut)
     if request.method == 'POST':
-        data['form'] = AddPaciente(request.POST, request.FILES, instance=paciente)
+        data['form'] = AddPaciente(request.POST,
+                                   request.FILES,
+                                   instance=paciente)
         if data['form'].is_valid():
             data['form'].save()
             return redirect('listar_pacientes')
@@ -67,7 +70,8 @@ def editar_ficha_paciente(request, paciente_rut):
 @login_required(login_url='/login')
 def agregar_supervisor(request):
     if request.method == "POST":
-        formSupervisor = AddSupervisor(request.POST, request.FILES)
+        formSupervisor = AddSupervisor(request.POST,
+                                       request.FILES)
         if formSupervisor.is_valid():
             supervisor = formSupervisor.save(commit=False)
             supervisor.crear()
@@ -82,7 +86,9 @@ def editar_supervisor(request, supervisor_rut):
     data = {'rut': supervisor_rut}
     supervisor = Supervisor.objects.get(rut=supervisor_rut)
     if request.method == 'POST':
-        data['form'] = AddSupervisor(request.POST, request.FILES, instance=supervisor)
+        data['form'] = AddSupervisor(request.POST,
+                                     request.FILES,
+                                     instance=supervisor)
         if data['form'].is_valid():
             data['form'].save()
             return redirect('listar_supervisores')
@@ -127,7 +133,9 @@ def editar_medico(request, medico_rut):
     data = {'rut': medico_rut}
     medico = Medico.objects.get(rut=medico_rut)
     if request.method == 'POST':
-        data['form'] = AddMedico(request.POST, request.FILES, instance=medico)
+        data['form'] = AddMedico(request.POST,
+                                 request.FILES,
+                                 instance=medico)
         if data['form'].is_valid():
             data['form'].save()
             return redirect('listar_medicos')
