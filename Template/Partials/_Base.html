@@ -37,12 +37,14 @@
 
             <!-- menu profile quick info -->
             <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
+              {% if request.user|is_admin or request.user|is_medico %}
+                <div class="profile_pic">
+                  <img src= alt="..." class="img-circle profile_img">
+                </div>
+              {% endif %}
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>{{request.user.first_name}} {{request.user.last_name}}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->

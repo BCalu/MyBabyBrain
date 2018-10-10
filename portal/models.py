@@ -63,7 +63,7 @@ class Administrador(Persona):
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def crear_usuario(self):
         user = User.objects.create_user(username=self.rut,
@@ -91,12 +91,14 @@ class Medico(Persona):
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def crear_usuario(self):
         user = User.objects.create_user(username=self.rut,
                                         email=self.email,
-                                        password=self.nombres + self.rut)
+                                        password=self.nombres + self.rut,
+                                        first_name=self.nombres,
+                                        last_name=self.apellidos)
         grupo = Group.objects.get(name='Medicos')
         grupo.user_set.add(user)
         self.user = user
@@ -129,7 +131,7 @@ class Supervisor(Persona):
     telefono_domiclio = models.CharField(max_length=13,
                                          null=True,
                                          blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def crear_usuario(self):
         user = User.objects.create_user(username=self.rut,
